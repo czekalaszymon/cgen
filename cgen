@@ -23,6 +23,8 @@ int main() {
 EOF
 
     cat > "$PROJECT/Makefile" <<EOF
+.PHONY: all run clean
+
 CC=gcc
 CFLAGS=-Iinclude
 SRC=\$(wildcard src/*.c)
@@ -41,7 +43,54 @@ EOF
     echo "build/" > "$PROJECT/.gitignore"
     echo "# $PROJECT" > "$PROJECT/README.md"
 
-    echo "Project '$PROJECT' created!"
+    # Add your custom .clang-format file:
+    cat > "$PROJECT/.clang-format" <<EOF
+BasedOnStyle: LLVM
+IndentWidth: 8
+TabWidth: 8
+UseTab: Always
+
+AllowShortIfStatementsOnASingleLine: true
+
+BreakBeforeBraces: Linux
+BraceWrapping:
+  AfterFunction: true
+  AfterStruct: true
+  AfterClass: true
+  AfterEnum: true
+  BeforeElse: true
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+
+AlignAfterOpenBracket: DontAlign
+AlignOperands: false
+
+SpaceBeforeParens: ControlStatements
+SpacesBeforeTrailingComments: 1
+
+IndentCaseLabels: false
+ColumnLimit: 80
+ReflowComments: false
+
+SortIncludes: false
+IncludeBlocks: Preserve
+
+PointerAlignment: Left
+EOF
+
+    echo "Project '$PROJECT' created with .clang-format!"
+
+    # Initialize git repo if none exists
+    if [ ! -d "$PROJECT/.git" ]; then
+        git -C "$PROJECT" init
+        echo "Initialized new git repo in $PROJECT"
+    fi
+
+    # Add all new files and commit
+    git -C "$PROJECT" add .
+    git -C "$PROJECT" commit -m "initial commit for $PROJECT"
+    echo "Added files and committed initial commit in $PROJECT"
 }
 
 function cgen_build() {
