@@ -1,0 +1,14 @@
+cgen - A Cargo-style C project generator written in Bash
+
+Features:
+- cgen new <project>: create a new project directory with Makefile and source
+- cgen build: builds the project
+- cgen run: builds and runs the project
+- cgen clean: removes the build artifacts
+
+Installation:
+- Copy the 'cgen' script to somewhere in your $PATH, e.g. ~/.local/bin
+- Make it executable: chmod +x ~/.local/bin/cgen
+
+License:
+- Released under the GNU General Public License v3.0 (see LICENSE)

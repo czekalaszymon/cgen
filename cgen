@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# Basic C "cargo-like" project manager: cgen
+
+COMMAND=$1
+PROJECT=$2
+
+function cgen_new() {
+    if [ -z "$PROJECT" ]; then
+        echo "Usage: cgen new <project_name>"
+        exit 1
+    fi
+
+    mkdir -p "$PROJECT"/{src,include,build}
+
+    cat <<EOF > "$PROJECT/src/main.c"
+#include <stdio.h>
+
+int main() {
+    printf("Hello from $PROJECT!\\n");
+    return 0;
+}
+EOF
+
+    cat > "$PROJECT/Makefile" <<EOF
+CC=gcc
+CFLAGS=-Iinclude
+SRC=\$(wildcard src/*.c)
+TARGET=build/$PROJECT
+
+all:
+$(printf '\t')\$(CC) \$(CFLAGS) \$(SRC) -o \$(TARGET)
+
+run: all
+$(printf '\t')./\$(TARGET)
+
+clean:
+$(printf '\t')rm -f \$(TARGET)
+EOF
+
+    echo "build/" > "$PROJECT/.gitignore"
+    echo "# $PROJECT" > "$PROJECT/README.md"
+
+    echo "Project '$PROJECT' created!"
+}
+
+function cgen_build() {
+    if [ ! -f Makefile ]; then
+        echo "No Makefile found. Are you inside a C project?"
+        exit 1
+    fi
+    make
+}
+
+function cgen_run() {
+    if [ ! -f Makefile ]; then
+        echo "No Makefile found. Are you inside a C project?"
+        exit 1
+    fi
+    make run
+}
+
+function cgen_clean() {
+    if [ ! -f Makefile ]; then
+        echo "No Makefile found. Are you inside a C project?"
+        exit 1
+    fi
+    make clean
+}
+
+case "$COMMAND" in
+    new)
+        cgen_new
+        ;;
+    build)
+        cgen_build
+        ;;
+    run)
+        cgen_run
+        ;;
+    clean)
+        cgen_clean
+        ;;
+    *)
+        echo "Usage: cgen <new|build|run|clean> [project_name]"
+        ;;
+esac
+
