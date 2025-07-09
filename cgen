@@ -3,7 +3,7 @@
 # Basic C "cargo-like" project manager: cgen
 
 COMMAND=$1
-PROJECT=$2
+PROJECT=${2:-$(basename "$PWD")}
 
 function cgen_new() {
     if [ -z "$PROJECT" ]; then
@@ -28,7 +28,7 @@ EOF
 CC=gcc
 CFLAGS=-Iinclude
 SRC=\$(wildcard src/*.c)
-TARGET=build/$PROJECT
+TARGET=build/\$(notdir \$(CURDIR))
 
 all:
 $(printf '\t')\$(CC) \$(CFLAGS) \$(SRC) -o \$(TARGET)
