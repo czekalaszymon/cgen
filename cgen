@@ -117,6 +117,20 @@ function cgen_clean() {
     make clean
 }
 
+function cgen_help() {
+    cat <<EOF
+Usage: cgen <command> [project_name]
+
+Commands:
+    new <project_name>    Create a new C project named <project_name>
+    build                 Build the current project (must be run inside project dir)
+    run                   Run the compiled project executable
+    clean                 Clean the build files
+    help                  Show this help message
+
+EOF
+}
+
 case "$COMMAND" in
     new)
         cgen_new
@@ -130,8 +144,11 @@ case "$COMMAND" in
     clean)
         cgen_clean
         ;;
+    help)
+        cgen_help
+        ;;
     *)
-        echo "Usage: cgen <new|build|run|clean> [project_name]"
+        echo "Usage: cgen <new|build|run|clean|help> [project_name]"
         ;;
 esac
 
