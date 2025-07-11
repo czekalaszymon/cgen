@@ -5,10 +5,16 @@ Features:
 - cgen build: builds the project
 - cgen run: builds and runs the project
 - cgen clean: removes the build artifacts
+- cgen format: formats all .c and .h files using clang-format (if configured)
 
 Installation:
 - Copy the 'cgen' script to somewhere in your $PATH, e.g. ~/.local/bin
 - Make it executable: chmod +x ~/.local/bin/cgen
+
+Requirements:
+- gcc
+- make
+- clang-format (optional, only for 'cgen format')
 
 License:
 - Released under the GNU General Public License v3.0 (see LICENSE)
