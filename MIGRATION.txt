@@ -1,0 +1,35 @@
+Migration Plan: Bash -> Rust
+============================
+
+This script ("cgen") was originally written in Bash to serve as a quick and minimal project generator 
+for simple C programs. For its current purpose - creating throwaway or quick-start C projects - 
+it works well and doesn't require anything more.
+
+However, Bash has clear limitations when it comes to:
+- scaling the tool with more features or commands
+- proper argument parsing and error handling
+- code maintainability and testing
+- user feedback, plugin support, or cross-platform behavior
+
+To address this, I plan to rewrite `cgen` in Rust.
+
+Why Rust:
+---------
+- The new version will use proper CLI parsing (via `clap`)
+- It will be more reliable, testable, and extensible
+- I've used Rust a bit before, and this tool is a good opportunity to turn it into a longer-term learning project
+
+What stays the same:
+--------------------
+- The command-line interface will stay the same: `cgen new foo`, `cgen build`, etc.
+- The Bash script will remain available as `cgen` for now
+- There will be no breaking changes for the basic use cases
+
+Planned phases:
+---------------
+1. Reimplement basic commands (`new`, `build`, `run`) in Rust
+2. Maintain feature parity with the Bash version
+3. Replace Bash as the default implementation
+4. (Optional) Add new features or refactor internal structure
+
+For now, the Bash script is still the main implementation.
