@@ -146,6 +146,7 @@ Commands:
     build                 Build the current project (must be run inside project dir)
     run                   Run the compiled project executable
     clean                 Clean the build files
+    format                Format source files using clang-format
     help                  Show this help message
 
 EOF
@@ -171,7 +172,7 @@ case "$COMMAND" in
         cgen_help
         ;;
     *)
-        echo "Usage: cgen <new|build|run|clean|help> [project_name]"
+        cgen_help 
         ;;
 esac
 
