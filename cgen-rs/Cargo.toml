@@ -1,0 +1,19 @@
+[package]
+name = "cgen"
+version = "0.1.0"
+edition = "2021"
+authors = ["Szymon Czekała <czekalaszymon.contact@gmail.com>"]
+description = "A simple and fast project generator for C programs"
+license = "GPL-3.0-or-later"
+readme = "../README"
+repository = "https://github.com/czekalaszymon/cgen"
+keywords = ["cli", "c", "project-generator"]
+categories = ["command-line-utilities", "development-tools"]
+
+[[bin]]
+name = "cgen"
+path = "src/main.rs"
+
+default-run = "cgen"
+
+[dependencies]
