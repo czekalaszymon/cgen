@@ -14,6 +14,6 @@ categories = ["command-line-utilities", "development-tools"]
 name = "cgen"
 path = "src/main.rs"
 
-default-run = "cgen"
-
 [dependencies]
+clap = { version = "4.3", features = ["derive"] }
+anyhow = "1.0"
