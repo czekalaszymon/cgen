@@ -1,0 +1,12 @@
+# Rust build artifacts
+**/target/
+
+*.rs.bk
+*.swp
+*.swo
+*~
+
+# IDE/editor specific
+.idea/
+.vscode/
+
